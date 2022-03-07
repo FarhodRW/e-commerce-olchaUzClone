@@ -1,8 +1,9 @@
-import { IsOptional, IsString, MinLength } from 'class-validator'
+import { IsOptional, IsString, MinLength, ValidateNested } from 'class-validator'
 import 'reflect-metadata'
 import { Type } from 'class-transformer';
 
 import { BaseDtoGroup } from './common.dto'
+import { BaseDto } from './common.dto';
 
 
 export class UserDtoGroup extends BaseDtoGroup {
@@ -18,7 +19,7 @@ class AddressDto {
   @IsString({
     groups: [UserDtoGroup.REGISTER, UserDtoGroup.UPDATE]
   })
-  city!: string;
+  city: string;
 
   @IsOptional({
     groups: [UserDtoGroup.UPDATE, UserDtoGroup.REGISTER]
@@ -26,7 +27,7 @@ class AddressDto {
   @IsString({
     groups: [UserDtoGroup.REGISTER, UserDtoGroup.UPDATE]
   })
-  street!: string;
+  street: string;
 
   @IsOptional({
     groups: [UserDtoGroup.UPDATE, UserDtoGroup.REGISTER]
@@ -34,14 +35,17 @@ class AddressDto {
   @IsString({
     groups: [UserDtoGroup.REGISTER, UserDtoGroup.UPDATE]
   })
-  postCode!: string;
+  postCode: string;
 }
 
-export class UserDto {
+export class UserDto extends BaseDto {
+  @IsOptional({
+    groups: [UserDtoGroup.UPDATE]
+  })
   @IsString({
     groups: [UserDtoGroup.REGISTER, UserDtoGroup.UPDATE]
   })
-  name!: string;
+  name: string;
 
   @IsOptional({
     groups: [UserDtoGroup.UPDATE]
@@ -52,15 +56,18 @@ export class UserDto {
   @MinLength(3, {
     groups: [UserDtoGroup.REGISTER, UserDtoGroup.UPDATE]
   })
-  password!: string;
+  password: string;
 
   @IsString({ groups: [UserDtoGroup.REGISTER, UserDtoGroup.LOGIN] })
-  email!: string;
+  email: string;
 
   @IsOptional({
     groups: [UserDtoGroup.REGISTER, UserDtoGroup.UPDATE]
   })
+  @ValidateNested({
+    groups: [UserDtoGroup.REGISTER, UserDtoGroup.UPDATE]
+  })
   @Type(() => AddressDto)
-  position!: AddressDto;
+  address: AddressDto;
 
 }
