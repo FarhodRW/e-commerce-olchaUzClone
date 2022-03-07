@@ -1,6 +1,6 @@
-import { UserDto, UserDtoGroup } from "../dto/user.dto"
-import { success } from "../middleware/helpers"
-import { validateIt } from "../middleware/validation"
+import { UserDto, UserDtoGroup } from "../db/dto/user.dto"
+import { success } from "../common/helpers"
+import { validateIt } from "../common/validation"
 import { createUserService, deleteUserService, getUserService, loginUserService, updateUserService } from "../service/user.service"
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'

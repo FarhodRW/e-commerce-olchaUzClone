@@ -1,6 +1,6 @@
 import { CategoryError } from "../db/model/category/category.error";
 import { CategoryModel } from "../db/model/category/category.model";
-import { CategoryDto } from "../dto/category.dto";
+import { CategoryDto } from "../db/dto/category.dto";
 
 export async function createCategoryService(dto: CategoryDto) {
   const newCategory = new CategoryModel(dto)

@@ -1,7 +1,7 @@
 
 import { ReviewError } from "../db/model/review/review.error";
 import { ReviewModel } from "../db/model/review/review.model";
-import { ReviewDto } from "../dto/review.dto";
+import { ReviewDto } from "../db/dto/review.dto";
 
 export async function createReviewService(dto: ReviewDto) {
   const newReview = new ReviewModel(dto)

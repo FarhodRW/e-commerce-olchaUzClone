@@ -1,6 +1,6 @@
-import { ProductDto, ProductDtoGroup } from "../dto/product.dto"
-import { success } from "../middleware/helpers"
-import { validateIt } from "../middleware/validation"
+import { ProductDto, ProductDtoGroup } from "../db/dto/product.dto"
+import { success } from "../common/helpers"
+import { validateIt } from "../common/validation"
 import { createProductService, deleteProductService, updateUserProductService } from "../service/product.service"
 
 export async function createProductController(req, res, next) {

@@ -1,7 +1,7 @@
 
 import { ProductError } from "../db/model/product/product.error";
 import { ProductModel } from "../db/model/product/product.model";
-import { ProductDto } from "../dto/product.dto";
+import { ProductDto } from "../db/dto/product.dto";
 
 export async function createProductService(dto: ProductDto) {
   const newProduct = new ProductModel(dto)

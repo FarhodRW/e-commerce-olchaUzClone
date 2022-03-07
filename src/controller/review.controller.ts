@@ -1,6 +1,6 @@
-import { ReviewDto, ReviewDtoGroup } from "../dto/review.dto"
-import { success } from "../middleware/helpers"
-import { validateIt } from "../middleware/validation"
+import { ReviewDto, ReviewDtoGroup } from "../db/dto/review.dto"
+import { success } from "../common/helpers"
+import { validateIt } from "../common/validation"
 import { createReviewService, deleteReviewService, updateUserReviewService } from "../service/review.service"
 
 export async function createReviewController(req, res, next) {

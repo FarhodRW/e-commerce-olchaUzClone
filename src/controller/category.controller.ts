@@ -1,7 +1,7 @@
-import { CategoryDto, CategoryDtoGroup } from "../dto/category.dto"
-import { UserDto, UserDtoGroup } from "../dto/user.dto"
-import { success } from "../middleware/helpers"
-import { validateIt } from "../middleware/validation"
+import { CategoryDto, CategoryDtoGroup } from "../db/dto/category.dto"
+import { UserDto, UserDtoGroup } from "../db/dto/user.dto"
+import { success } from "../common/helpers"
+import { validateIt } from "../common/validation"
 import { createCategoryService, deleteCategoryService, updateUserCategoryService } from "../service/category.service"
 
 export async function createCategoryController(req, res, next) {

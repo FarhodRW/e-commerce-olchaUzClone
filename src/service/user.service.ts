@@ -1,7 +1,7 @@
 import { UserDefinedError } from "../db/common/common.error";
 import { UserError } from "../db/model/user/user.error";
 import { User, UserModel } from "../db/model/user/user.model";
-import { UserDto } from "../dto/user.dto";
+import { UserDto } from "../db/dto/user.dto";
 
 export async function createUserService(dto: UserDto) {
   const newUser = new UserModel(dto)
