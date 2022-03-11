@@ -46,4 +46,9 @@ export class CategoryDto extends BaseDto {
   @IsOptional({})
   @IsString({ groups: [CategoryDtoGroup.CREATE, CategoryDtoGroup.UPDATE] })
   parentId: string;
+
+  @IsBoolean({
+    groups: [CategoryDtoGroup.CREATE, CategoryDtoGroup.UPDATE]
+  })
+  isParent: boolean = false
 }

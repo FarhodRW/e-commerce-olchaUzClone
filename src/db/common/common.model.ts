@@ -3,6 +3,6 @@ export enum CollectionNames {
   PRODUCTS = 'products',
   CATEGORIES = 'categories',
   ORDERS = 'orders',
-  REVIEWS = 'reviews',
-  CARTS = 'carts'
+  ORDER_ITEMS = 'orderItems',
+  REVIEWS = 'reviews'
 }

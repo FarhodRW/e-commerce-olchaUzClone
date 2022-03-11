@@ -1,5 +1,5 @@
 import { Transform } from "class-transformer";
-import { IsNumber, isNumberString, IsOptional, IsString } from "class-validator";
+import { IsMongoId, IsNumber, isNumberString, IsOptional, IsString } from "class-validator";
 
 export class BaseDtoGroup {
   static CREATE = 'create'
@@ -40,4 +40,7 @@ export class BasePagingDto {
     groups: [BaseDtoGroup.GET_PAGING, BaseDtoGroup.CHOOSE]
   })
   search: string;
+
+  @IsMongoId({ groups: [BaseDtoGroup.GET_PAGING, BaseDtoGroup.CHOOSE] })
+  categoryId: string
 }

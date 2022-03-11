@@ -1,7 +1,7 @@
-import { prop, getModelForClass, modelOptions, Index } from "@typegoose/typegoose";
+import { prop, getModelForClass, modelOptions, Index, types, Ref } from "@typegoose/typegoose";
 import { CollectionNames } from "../../common/common.model";
 import { BaseModel, Language } from "../baseModel";
-
+import { Types } from 'mongoose'
 
 @modelOptions({
   schemaOptions: {
@@ -27,8 +27,14 @@ export class Category extends BaseModel {
   @prop({ required: true })
   public image: string;
 
-  @prop({})
-  public parentId?: string;
+  @prop({
+    type: Types.ObjectId,
+    ref: CollectionNames.CATEGORIES
+  })
+  parentId: Ref<Category>;
+
+  @prop({ default: false })
+  isParent: boolean
 
 }
 

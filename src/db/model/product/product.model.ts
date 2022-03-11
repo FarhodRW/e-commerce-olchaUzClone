@@ -41,6 +41,9 @@ export class Product extends BaseModel {
   @prop({ required: true })
   public price: number;
 
+  @prop({ default: 0 })
+  public cost: number;
+
   @prop({})
   public description: string;
 
@@ -49,6 +52,19 @@ export class Product extends BaseModel {
 
   @prop({})
   public quantity: number;
+
+  //value in percent
+  @prop({ default: 0 })
+  discount_value: number;
+
+  @prop({ default: false })
+  on_discount: boolean;
+
+  @prop({ default: 0 })
+  tax: number;
+
+  @prop({ default: 0 })
+  has_tax: number;
 }
 
 

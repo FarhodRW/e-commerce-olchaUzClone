@@ -1,7 +1,7 @@
 import { ProductDto, ProductDtoGroup } from "../db/dto/product.dto"
 import { success } from "../common/helpers"
 import { validateIt } from "../common/validation"
-import { createProductService, deleteProductService, updateUserProductService } from "../service/product.service"
+import { createProductService, deleteProductService, getSingleProductService, updateUserProductService } from "../service/product.service"
 
 export async function createProductController(req, res, next) {
 
@@ -38,6 +38,17 @@ export async function deleteProductController(req, res, next) {
     const query = req.params.id
     const user = await deleteProductService(query)
     success(res, 'succcess')
+  } catch (error) {
+    next(error)
+  }
+}
+
+
+export async function getSingleProductController(req, res, next) {
+  try {
+    const query = req.params.id
+    const product = await getSingleProductService(query)
+    success(res, product)
   } catch (error) {
     next(error)
   }
