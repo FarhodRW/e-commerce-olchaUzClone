@@ -11,16 +11,9 @@ export class ReviewDtoGroup extends BaseDtoGroup { }
 export class ReviewDto extends BaseDto {
 
   @IsMongoId({
-    groups: [ReviewDtoGroup.GET_PAGING, ReviewDtoGroup.CHOOSE,
-    ReviewDtoGroup.CREATE, ReviewDtoGroup.UPDATE]
+    groups: [ReviewDtoGroup.CREATE, ReviewDtoGroup.UPDATE]
   })
   productId: string;
-
-  @IsNotEmpty({
-    groups: [ReviewDtoGroup.GET_PAGING, ReviewDtoGroup.CHOOSE,
-    ReviewDtoGroup.CREATE, ReviewDtoGroup.UPDATE]
-  })
-  createdBy: string;
 
   @Min(1, {
     groups: [ReviewDtoGroup.CREATE, ReviewDtoGroup.UPDATE]
@@ -34,4 +27,14 @@ export class ReviewDto extends BaseDto {
     groups: [ReviewDtoGroup.CREATE, ReviewDtoGroup.UPDATE]
   })
   comment: string;
+}
+
+export class ReviewGetDto extends BasePagingDto {
+  @IsOptional({
+    groups: [ReviewDtoGroup.GET_PAGING]
+  })
+  @IsMongoId({
+    groups: [ReviewDtoGroup.GET_PAGING]
+  })
+  productId: string;
 }
