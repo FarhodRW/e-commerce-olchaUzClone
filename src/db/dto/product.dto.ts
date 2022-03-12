@@ -72,3 +72,6 @@ export class ProductDto extends BaseDto {
   })
   quantity: number;
 }
+
+
+export class ProductGetDto extends BasePagingDto { }

@@ -39,8 +39,5 @@ export class BasePagingDto {
   @IsString({
     groups: [BaseDtoGroup.GET_PAGING, BaseDtoGroup.CHOOSE]
   })
-  search: string;
-
-  @IsMongoId({ groups: [BaseDtoGroup.GET_PAGING, BaseDtoGroup.CHOOSE] })
-  categoryId: string
+  search?: string;
 }

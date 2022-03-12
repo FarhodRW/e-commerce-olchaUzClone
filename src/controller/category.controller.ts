@@ -1,8 +1,8 @@
-import { CategoryDto, CategoryDtoGroup } from "../db/dto/category.dto"
+import { CategoryDto, CategoryDtoGroup, CategoryGetDto } from "../db/dto/category.dto"
 import { UserDto, UserDtoGroup } from "../db/dto/user.dto"
 import { success } from "../common/helpers"
 import { validateIt } from "../common/validation"
-import { createCategoryService, deleteCategoryService, getCategoryService, getSubCategoriesService, getSubCategoryService, updateUserCategoryService } from "../service/category.service"
+import { createCategoryService, deleteCategoryService, getCategoryPagingService, updateUserCategoryService } from "../service/category.service"
 import { BaseDtoGroup, BasePagingDto } from "../db/dto/common.dto"
 
 export async function createCategoryController(req, res, next) {
@@ -35,6 +35,7 @@ export async function updateCategoryController(req, res, next) {
 }
 
 
+//it should be delete many
 export async function deleteCategoryController(req, res, next) {
   try {
     const query = req.params.id
@@ -45,31 +46,17 @@ export async function deleteCategoryController(req, res, next) {
   }
 }
 
-export async function getCategoriesController(req, res, next) {
+export async function getCategoryPagingController(req, res, next) {
   try {
-    const categories = await getCategoryService()
+    const data = await validateIt(req.body, CategoryGetDto, CategoryDtoGroup.GET_PAGING);
+
+    const categories = await getCategoryPagingService(data)
+
     success(res, categories)
   } catch (error) {
     next(error)
   }
 }
 
-export async function getSubCategoriesController(req, res, next) {
-  try {
-    const dto = await validateIt(req.params, BasePagingDto, BaseDtoGroup.CHOOSE)
-    const categories = await getSubCategoriesService(dto)
-  } catch (error) {
-    next(error)
-  }
-}
-
-export async function getSubCategoryController(req, res, next) {
-  try {
-    const dto = await validateIt(req.params, BasePagingDto, BaseDtoGroup.CHOOSE)
-    const categories = await getSubCategoryService(dto)
-  } catch (error) {
-    next(error)
-  }
-}
 
 

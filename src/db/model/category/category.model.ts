@@ -21,7 +21,7 @@ import { Types } from 'mongoose'
 
 
 export class Category extends BaseModel {
-  @prop({ required: true, type: () => Language })
+  @prop({ _id: false, required: true, type: () => Language })
   public title!: Language;
 
   @prop({ required: true })

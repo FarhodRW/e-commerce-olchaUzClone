@@ -1,4 +1,4 @@
-import { IsBoolean, IsOptional, IsString, MinLength, ValidateNested } from 'class-validator'
+import { IsBoolean, IsMongoId, IsOptional, IsString, MinLength, ValidateNested } from 'class-validator'
 import 'reflect-metadata'
 import { Type } from 'class-transformer';
 
@@ -51,4 +51,22 @@ export class CategoryDto extends BaseDto {
     groups: [CategoryDtoGroup.CREATE, CategoryDtoGroup.UPDATE]
   })
   isParent: boolean = false
+}
+
+export class CategoryGetDto extends BasePagingDto {
+  @IsOptional({
+    groups: [CategoryDtoGroup.GET_PAGING]
+  })
+  @IsBoolean({
+    groups: [CategoryDtoGroup.GET_PAGING]
+  })
+  isTop: boolean;
+
+  @IsOptional({
+    groups: [CategoryDtoGroup.GET_PAGING]
+  })
+  @IsMongoId({
+    groups: [CategoryDtoGroup.GET_PAGING]
+  })
+  parentId: string;
 }

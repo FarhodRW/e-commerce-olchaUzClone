@@ -29,8 +29,8 @@ export class BaseModel {
   })
   isDeleted?: boolean;
 
-  @prop({})
-  completely_deleted?: false;
+  @prop({ default: false })
+  completelyDeleted?: false;
 
   @prop({
     type: Types.ObjectId,

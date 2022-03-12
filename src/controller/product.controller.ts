@@ -1,7 +1,7 @@
-import { ProductDto, ProductDtoGroup } from "../db/dto/product.dto"
+import { ProductDto, ProductDtoGroup, ProductGetDto } from "../db/dto/product.dto"
 import { success } from "../common/helpers"
 import { validateIt } from "../common/validation"
-import { createProductService, deleteProductService, getSingleProductService, updateUserProductService } from "../service/product.service"
+import { createProductService, deleteProductService, getProductByIdService, getProductPagingService, updateUserProductService } from "../service/product.service"
 
 export async function createProductController(req, res, next) {
 
@@ -44,11 +44,23 @@ export async function deleteProductController(req, res, next) {
 }
 
 
-export async function getSingleProductController(req, res, next) {
+export async function getProductByIdController(req, res, next) {
   try {
     const query = req.params.id
-    const product = await getSingleProductService(query)
+    const product = await getProductByIdService(query)
     success(res, product)
+  } catch (error) {
+    next(error)
+  }
+}
+
+export async function getProductPagingController(req, res, next) {
+  try {
+    const data = await validateIt(req.body, ProductGetDto, ProductDtoGroup.GET_PAGING);
+
+    const products = await getProductPagingService(data)
+
+    success(res, products)
   } catch (error) {
     next(error)
   }
