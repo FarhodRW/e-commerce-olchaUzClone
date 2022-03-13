@@ -22,6 +22,8 @@ export async function createProductController(req, res, next) {
 
 export async function updateProductController(req, res, next) {
   try {
+    console.log(req.params);
+
     const query = req.params.id
     const dto = await validateIt(req.body, ProductDto, ProductDtoGroup.UPDATE)
     console.log(dto)

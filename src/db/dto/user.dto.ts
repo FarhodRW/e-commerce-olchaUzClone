@@ -1,8 +1,8 @@
-import { IsOptional, IsString, MinLength, ValidateNested } from 'class-validator'
+import { IsArray, IsBoolean, IsOptional, IsString, MinLength, ValidateNested } from 'class-validator'
 import 'reflect-metadata'
 import { Type } from 'class-transformer';
 
-import { BaseDtoGroup } from './common.dto'
+import { BaseDtoGroup, BasePagingDto } from './common.dto'
 import { BaseDto } from './common.dto';
 
 
@@ -70,4 +70,33 @@ export class UserDto extends BaseDto {
   @Type(() => AddressDto)
   address: AddressDto;
 
+  @IsArray({
+    groups: [UserDtoGroup.UPDATE]
+  })
+
+  @IsOptional({ groups: [UserDtoGroup.UPDATE] })
+  @IsString({
+    groups: [UserDtoGroup.UPDATE],
+    each: true
+  })
+  favoriteIds: string[];
+
+  @IsOptional({
+    groups: [UserDtoGroup.UPDATE, UserDtoGroup.REGISTER,]
+  })
+  @IsBoolean({
+    groups: [UserDtoGroup.REGISTER, UserDtoGroup.UPDATE]
+  })
+  isAdmin?: boolean;
+
+  @IsOptional({
+    groups: [UserDtoGroup.UPDATE, UserDtoGroup.REGISTER,]
+  })
+  @IsBoolean({
+    groups: [UserDtoGroup.REGISTER, UserDtoGroup.UPDATE]
+  })
+  isSuperAdmin?: boolean;
+
 }
+
+export class UserGetDto extends BasePagingDto { }

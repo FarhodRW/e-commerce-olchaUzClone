@@ -43,9 +43,9 @@ export class CategoryDto extends BaseDto {
   @IsOptional({
     groups: [CategoryDtoGroup.UPDATE]
   })
-  @IsOptional({})
+  @IsOptional({ groups: [CategoryDtoGroup.CREATE, CategoryDtoGroup.UPDATE] })
   @IsString({ groups: [CategoryDtoGroup.CREATE, CategoryDtoGroup.UPDATE] })
-  parentId: string;
+  parentId?: string;
 
   @IsBoolean({
     groups: [CategoryDtoGroup.CREATE, CategoryDtoGroup.UPDATE]
@@ -68,5 +68,5 @@ export class CategoryGetDto extends BasePagingDto {
   @IsMongoId({
     groups: [CategoryDtoGroup.GET_PAGING]
   })
-  parentId: string;
+  parentId?: string;
 }

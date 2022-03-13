@@ -1,4 +1,4 @@
-import { IsArray, IsBoolean, IsMongoId, IsNumber, IsNumberString, IsOptional, IsString, MaxLength, Min, MinLength, ValidateNested } from 'class-validator'
+import { IsArray, IsBoolean, IsMongoId, IsOptional, IsString, Min, ValidateNested } from 'class-validator'
 import 'reflect-metadata'
 import { Type } from 'class-transformer';
 
@@ -74,4 +74,9 @@ export class ProductDto extends BaseDto {
 }
 
 
-export class ProductGetDto extends BasePagingDto { }
+export class ProductGetDto extends BasePagingDto {
+  @IsOptional({
+    groups: [ProductDtoGroup.GET_PAGING]
+  })
+  categoryId: string;
+}

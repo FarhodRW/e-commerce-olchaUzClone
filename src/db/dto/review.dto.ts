@@ -1,4 +1,4 @@
-import { IsArray, IsBoolean, IsMongoId, IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsString, Max, MaxLength, Min, MinLength, ValidateNested } from 'class-validator'
+import { IsMongoId, IsOptional, IsString, Max, Min } from 'class-validator'
 import 'reflect-metadata'
 import { Type } from 'class-transformer';
 

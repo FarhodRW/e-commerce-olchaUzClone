@@ -1,6 +1,7 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import 'dotenv/config'
+import adminRouter from './src/router/admin.router'
 import userRouter from './src/router/user.router'
 import categoryRouter from './src/router/category.router'
 import productRouter from './src/router/product.router'
@@ -16,6 +17,7 @@ mongoose.connect(String(process.env.DBURL))
 mongoose.set('debug', true);
 app.use(express.json())
 
+app.use('/admin', adminRouter)
 app.use('/user', userRouter)
 app.use('/category', categoryRouter)
 app.use('/product', productRouter)

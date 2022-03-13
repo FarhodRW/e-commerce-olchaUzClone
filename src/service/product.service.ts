@@ -5,6 +5,7 @@ import { ProductDto, ProductGetDto } from "../db/dto/product.dto";
 import { FilterQuery, Document, Types } from 'mongoose'
 import { CollectionNames } from "../db/common/common.model";
 import { findPaging } from "./base.service";
+import { getCategoryChildsIdsService } from "./category.service";
 
 export async function createProductService(dto: ProductDto) {
   const newProduct = new ProductModel(dto)
@@ -33,10 +34,17 @@ export async function deleteProductService(query) {
 
 
 export async function getProductPagingService(dto: ProductGetDto) {
-  const { page, limit, search } = dto;
+  const { page, limit, search, categoryId } = dto;
 
   const query: FilterQuery<Product & Document> = {
     isDeleted: false
+  }
+
+  if (categoryId) {
+    const catIds = await getCategoryChildsIdsService(categoryId)
+    query.categoryId = {
+      $in: catIds.map(id => new Types.ObjectId(id))
+    }
   }
 
   if (search) {

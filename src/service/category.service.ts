@@ -1,7 +1,6 @@
 import { CategoryError } from "../db/model/category/category.error";
 import { Category, CategoryModel } from "../db/model/category/category.model";
 import { CategoryDto, CategoryGetDto } from "../db/dto/category.dto";
-import { BasePagingDto } from "../db/dto/common.dto";
 import { FilterQuery, Document, Types } from 'mongoose'
 import { CollectionNames } from "../db/common/common.model";
 import { findPaging } from "./base.service";
@@ -21,7 +20,7 @@ export async function updateUserCategoryService(query, dto: CategoryDto) {
 }
 
 export async function deleteCategoryService(query) {
-  const category = await CategoryModel.findByIdAndDelete(query)
+  const category = await CategoryModel.deleteMany(query)
   if (!category) throw CategoryError.NotFound()
   return category
 }
@@ -103,3 +102,54 @@ export async function getCategoryPagingService(dto: CategoryGetDto) {
 }
 
 //mvp
+
+export async function getCategoryChildsIdsService(categoryId) {
+
+  const $match = {
+    $match: {
+      _id: new Types.ObjectId(categoryId)
+    }
+  }
+
+  const $graphLookup = {
+    $graphLookup: {
+      from: CollectionNames.CATEGORIES,
+      startWith: "$_id",
+      connectFromField: "_id",
+      connectToField: "parentId",
+      as: "category",
+      restrictSearchWithMatch: { isDeleted: false }
+    }
+  }
+
+  const $unwind = {
+    $unwind: {
+      path: '$category',
+      preserveNullAndEmptyArrays: true
+    }
+  }
+
+  const $group = {
+    $group: {
+      _id: '$_id',
+      ids: {
+        $addToSet: '$category._id'
+      }
+    }
+  }
+
+  const pipeline = [
+    $match,
+    $graphLookup,
+    $unwind,
+    $group
+  ]
+
+  const categories = await CategoryModel.aggregate(pipeline);
+
+  if (categories.length) {
+    return [categories[0]._id, ...categories[0].ids]
+  }
+
+  return []
+}

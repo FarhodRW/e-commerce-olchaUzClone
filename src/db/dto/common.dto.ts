@@ -1,5 +1,5 @@
 import { Transform } from "class-transformer";
-import { IsMongoId, IsNumber, isNumberString, IsOptional, IsString } from "class-validator";
+import { IsNumber, isNumberString, IsOptional, IsString } from "class-validator";
 
 export class BaseDtoGroup {
   static CREATE = 'create'

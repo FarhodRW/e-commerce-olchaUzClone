@@ -5,7 +5,6 @@ import { ReviewDto, ReviewGetDto } from "../db/dto/review.dto";
 import { FilterQuery, Document, Types } from 'mongoose'
 import { CollectionNames } from "../db/common/common.model";
 import { findPaging } from "./base.service";
-import { Product } from "../db/model/product/product.model";
 
 export async function createReviewService(dto: ReviewDto) {
   const newReview = new ReviewModel(dto)
@@ -34,7 +33,7 @@ export async function getReviewPagingService(dto: ReviewGetDto) {
     productId: new Types.ObjectId(productId), isDeleted: false
   }
 
-  const $lookupCategory = {
+  const $lookupUser = {
     $lookup: {
       from: CollectionNames.USERS,
       localField: 'createdBy',
@@ -43,7 +42,7 @@ export async function getReviewPagingService(dto: ReviewGetDto) {
     }
   }
 
-  const $unwindCategory = {
+  const $unwindUser = {
     $unwind: {
       path: '$user',
       preserveNullAndEmptyArrays: true
@@ -67,7 +66,7 @@ export async function getReviewPagingService(dto: ReviewGetDto) {
     createdAt: -1
   }
 
-  const pipeline = [$lookupCategory, $unwindCategory, $project];
+  const pipeline = [$lookupUser, $unwindUser, $project];
 
   const data = await findPaging(ReviewModel, query, page, limit, pipeline, $sort);
   console.log(data)
@@ -77,3 +76,6 @@ export async function getReviewPagingService(dto: ReviewGetDto) {
 
 
 //mvp
+
+
+//how to take average review?

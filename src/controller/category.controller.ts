@@ -1,9 +1,7 @@
 import { CategoryDto, CategoryDtoGroup, CategoryGetDto } from "../db/dto/category.dto"
-import { UserDto, UserDtoGroup } from "../db/dto/user.dto"
 import { success } from "../common/helpers"
 import { validateIt } from "../common/validation"
-import { createCategoryService, deleteCategoryService, getCategoryPagingService, updateUserCategoryService } from "../service/category.service"
-import { BaseDtoGroup, BasePagingDto } from "../db/dto/common.dto"
+import { createCategoryService, deleteCategoryService, getCategoryPagingService, getCategoryChildsIdsService, updateUserCategoryService } from "../service/category.service"
 
 export async function createCategoryController(req, res, next) {
 
@@ -35,10 +33,10 @@ export async function updateCategoryController(req, res, next) {
 }
 
 
-//it should be delete many
+//it should be delete many  //done
 export async function deleteCategoryController(req, res, next) {
   try {
-    const query = req.params.id
+    const query = req.body
     const user = await deleteCategoryService(query)
     success(res, 'succcess')
   } catch (error) {
@@ -58,5 +56,13 @@ export async function getCategoryPagingController(req, res, next) {
   }
 }
 
-
+export async function getProductsFromAnyCategoryController(req, res, next) {
+  try {
+    const query = req.body.id
+    const products = await getCategoryChildsIdsService(query)
+    success(res, products)
+  } catch (error) {
+    next(error)
+  }
+}
 
